@@ -10,7 +10,7 @@ export default function Navbar() {
               <nav aria-label="Global" className="hidden md:block">
                 <ul className="flex items-center gap-6 text-sm">
                   <li>
-                    <Link href={"/dashboard"}>
+                    <Link href={"/"}>
                       <p className="text-base font-semibold text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75">
                         Home
                       </p>
