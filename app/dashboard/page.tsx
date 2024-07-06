@@ -12,7 +12,7 @@ export default function Dashboard() {
               <strong className="font-medium sm:block">
                 Backend Dev.
               </strong>
-              <p className="font-normal text-3xl">Read more <Link className="text-lime-400 font-semibold" href={'/about'}>About me</Link> or <Link className="text-sky-400 font-semibold" href={'/contact'}>Contact me</Link></p>
+              <p className="font-normal text-3xl">Read more <Link className="text-lime-400 font-semibold" href={'/about'}>About me</Link></p>
             </h1>
           </div>
         </div>
