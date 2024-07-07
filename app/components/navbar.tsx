@@ -1,54 +1,140 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default function Navbar() {
-  return (
-      <div>
-        <header className="bg-white dark:bg-gray-900">
-          <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-1 items-center justify-end md:justify-between">
-              <nav aria-label="Global" className="hidden md:block">
-                <ul className="flex items-center gap-6 text-sm">
-                  <li>
-                    <Link href={"/"}>
-                      <p className="text-base font-semibold text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75">
-                        Home
-                      </p>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href={"/about"}>
-                      <p className="text-base font-semibold text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75">
-                        About
-                      </p>
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
-              <div className="flex items-center gap-4">
-                <div className="sm:flex sm:gap-4"></div>
-
-                <button className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden dark:bg-gray-800 dark:text-white dark:hover:text-white/75">
-                  <span className="sr-only">Toggle menu</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
-      </div>
-  );
+interface Size {
+  width: number;
+  height: number;
 }
+
+const Navbar = () => {
+  const size = useWindowSize();
+  const [isMenuShow, setMenuShow] = useState(false);
+  const closeMenu = () => setMenuShow(false);
+
+  return (
+    <div>
+      <header className="bg-white dark:bg-gray-900">
+        {size ? (
+          size.width >= 640 ? (
+            <NavbarNormal />
+          ) : (
+            <NavbarMobile
+              onClick={() => setMenuShow((e) => !e)}
+              isMenuShow={isMenuShow}
+            />
+          )
+        ) : (
+          "Loading..."
+        )}
+
+        {isMenuShow ? <NavbarMenu closeMenu={closeMenu} /> : null}
+      </header>
+    </div>
+  );
+};
+
+const NavbarMobile = ({
+  onClick,
+  isMenuShow,
+}: {
+  onClick: () => void;
+  isMenuShow: boolean;
+}) => {
+  return (
+    <>
+      <div className="flex justify-between py-4">
+        <div><Link href={'/'}>Moon.</Link></div>
+        <div className="z-20">
+          <button type="button" onClick={onClick}>
+            {isMenuShow ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="2rem"
+                height="2rem"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18 17.94 6M18 18 6.06 6"
+                />
+              </svg>
+            ) : (
+              <svg
+                width="2rem"
+                height="2rem"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 6H20M4 12H20M4 18H20"
+                  stroke="#fff"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const NavbarMenu = ({ closeMenu }: { closeMenu: () => void }) => {
+  return (
+    <div className="bg-gray-900 fixed inset-0 z-10">
+      <div className="flex flex-col justify-center h-full mx-6">
+        <span className="py-4 text-3xl font-semibold"><Link onClick={closeMenu} href={'/'}>Home</Link></span>
+        <span className="py-4 text-3xl font-semibold"><Link onClick={closeMenu} href={'/about'}>About</Link></span>
+      </div>
+    </div>
+  );
+};
+
+const NavbarNormal = () => {
+  return (
+    <div className="flex">
+      <div className="flex flex-row">
+        <span className="py-4 text-xl font-semibold"><Link href={'/'}>Home</Link></span>
+        <span className="px-6 py-4 text-xl font-semibold"><Link href={'/about'}>About</Link></span>
+      </div>
+    </div>
+  );
+};
+
+const useWindowSize = () => {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState<Size | undefined>(undefined);
+
+  useEffect(() => {
+    // only execute all the code below in client side
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+  return windowSize;
+};
+
+export default Navbar;
