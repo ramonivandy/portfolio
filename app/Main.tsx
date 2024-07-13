@@ -12,7 +12,7 @@ export default function Home({ posts }) {
       <div className="h-[calc(100vh-19rem)]">
         <div className="flex h-full">
           <div className="content-center">
-            <p className="text-3xl font-bold md:text-5xl">Hej! Ramon here!</p>
+            <p className="text-3xl font-bold md:text-5xl">Hej! Ramon's here!</p>
             <p className="text-2xl font-semibold md:text-3xl">Backend Developer</p>
             <p className="mt-2 py-4 text-xl font-semibold md:text-2xl">
               Read more{' '}
