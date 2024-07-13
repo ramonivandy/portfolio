@@ -1,16 +1,16 @@
-"use client";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+'use client'
+import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
 
 interface Size {
-  width: number;
-  height: number;
+  width: number
+  height: number
 }
 
 const Navbar = () => {
-  const size = useWindowSize();
-  const [isMenuShow, setMenuShow] = useState(false);
-  const closeMenu = () => setMenuShow(false);
+  const size = useWindowSize()
+  const [isMenuShow, setMenuShow] = useState(false)
+  const closeMenu = () => setMenuShow(false)
 
   return (
     <div>
@@ -19,32 +19,25 @@ const Navbar = () => {
           size.width >= 640 ? (
             <NavbarNormal />
           ) : (
-            <NavbarMobile
-              onClick={() => setMenuShow((e) => !e)}
-              isMenuShow={isMenuShow}
-            />
+            <NavbarMobile onClick={() => setMenuShow((e) => !e)} isMenuShow={isMenuShow} />
           )
         ) : (
-          "Loading..."
+          'Loading...'
         )}
 
         {isMenuShow ? <NavbarMenu closeMenu={closeMenu} /> : null}
       </header>
     </div>
-  );
-};
+  )
+}
 
-const NavbarMobile = ({
-  onClick,
-  isMenuShow,
-}: {
-  onClick: () => void;
-  isMenuShow: boolean;
-}) => {
+const NavbarMobile = ({ onClick, isMenuShow }: { onClick: () => void; isMenuShow: boolean }) => {
   return (
     <>
       <div className="flex justify-between py-4">
-        <div><Link href={'/'}>Moon.</Link></div>
+        <div>
+          <Link href={'/'}>Moon.</Link>
+        </div>
         <div className="z-20">
           <button type="button" onClick={onClick}>
             {isMenuShow ? (
@@ -84,35 +77,47 @@ const NavbarMobile = ({
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 const NavbarMenu = ({ closeMenu }: { closeMenu: () => void }) => {
   return (
-    <div className="bg-gray-900 fixed inset-0 z-10">
-      <div className="flex flex-col justify-center h-full mx-6">
-        <span className="py-4 text-3xl font-semibold"><Link onClick={closeMenu} href={'/'}>Home</Link></span>
-        <span className="py-4 text-3xl font-semibold"><Link onClick={closeMenu} href={'/about'}>About</Link></span>
+    <div className="fixed inset-0 z-10 bg-gray-900">
+      <div className="mx-6 flex h-full flex-col justify-center">
+        <span className="py-4 text-3xl font-semibold">
+          <Link onClick={closeMenu} href={'/'}>
+            Home
+          </Link>
+        </span>
+        <span className="py-4 text-3xl font-semibold">
+          <Link onClick={closeMenu} href={'/about'}>
+            About
+          </Link>
+        </span>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const NavbarNormal = () => {
   return (
     <div className="flex">
       <div className="flex flex-row">
-        <span className="py-4 text-xl font-semibold"><Link href={'/'}>Home</Link></span>
-        <span className="px-6 py-4 text-xl font-semibold"><Link href={'/about'}>About</Link></span>
+        <span className="py-4 text-xl font-semibold">
+          <Link href={'/'}>Home</Link>
+        </span>
+        <span className="px-6 py-4 text-xl font-semibold">
+          <Link href={'/about'}>About</Link>
+        </span>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const useWindowSize = () => {
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-  const [windowSize, setWindowSize] = useState<Size | undefined>(undefined);
+  const [windowSize, setWindowSize] = useState<Size | undefined>(undefined)
 
   useEffect(() => {
     // only execute all the code below in client side
@@ -122,19 +127,19 @@ const useWindowSize = () => {
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,
-      });
+      })
     }
 
     // Add event listener
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize)
 
     // Call handler right away so state gets updated with initial window size
-    handleResize();
+    handleResize()
 
     // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty array ensures that effect is only run on mount
-  return windowSize;
-};
+    return () => window.removeEventListener('resize', handleResize)
+  }, []) // Empty array ensures that effect is only run on mount
+  return windowSize
+}
 
-export default Navbar;
+export default Navbar

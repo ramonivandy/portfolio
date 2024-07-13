@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react'
 
 export default function Footer() {
   return (
-    <div className="flex justify-center w-full bg-gray-900 pb-4">
+    <div className="flex w-full justify-center bg-gray-900 pb-4">
       <div className="mx-2 mt-4">
         <a href="https://github.com/ramonivandy">
           <svg
-            className="w-6 h-6 text-gray-800 dark:text-white"
+            className="h-6 w-6 text-gray-800 dark:text-white"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -25,7 +25,7 @@ export default function Footer() {
       <div className="mx-2 mt-4">
         <a href="https://www.linkedin.com/in/ramonivandy/">
           <svg
-            className="w-6 h-6 text-gray-800 dark:text-white"
+            className="h-6 w-6 text-gray-800 dark:text-white"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -45,7 +45,7 @@ export default function Footer() {
       <div className="mx-2 mt-4">
         <a href="mailto:ramonivandysetiawan@gmail.com">
           <svg
-            className="w-6 h-6 text-gray-800 dark:text-white"
+            className="h-6 w-6 text-gray-800 dark:text-white"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -62,5 +62,5 @@ export default function Footer() {
         </a>
       </div>
     </div>
-  );
+  )
 }
