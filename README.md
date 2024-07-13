@@ -1,6 +1,3 @@
-<div align="center">
-  <img alt="Logo" src="#" width="100px" />
-</div>
 <h1 align="center">
   ramonivandy.xyz
 </h1>
